@@ -1,12 +1,14 @@
 package com.backpoc.presentation.dto;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class CourseScheduleDTO {
 
+    private Long courseId;
     private String courseName;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalTime startDateTime;
+    private LocalTime endDateTime;
 
     public String getCourseName() {
         return courseName;
@@ -16,20 +18,26 @@ public class CourseScheduleDTO {
         this.courseName = courseName;
     }
 
-    public LocalDateTime getStartDateTime() {
+    public LocalTime getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
+    public void setStartDateTime(LocalTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public LocalDateTime getEndDateTime() {
+    public LocalTime getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
+    public void setEndDateTime(LocalTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+    public Long getCourseId() {
+        return courseId;
+    }
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
 }

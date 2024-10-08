@@ -3,6 +3,8 @@ package com.backpoc.service.implementation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.backpoc.persistence.entity.User;
+import com.backpoc.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +21,10 @@ public class FacultyServiceImpl implements IFacultyService {
     private FacultyRepository facultyRepository;
 
     @Autowired
-    private FacultyMapper facultyMapper;
+    private UserRepository userRepository;
 
-    @Override
-    public boolean validateUser(String email, String password) {
-        Faculty faculty = facultyRepository.findByEmail(email);
-        if (faculty != null) {
-            return faculty.getPasswordHash().equals(password);
-        }
-        return false;
-    }
+    @Autowired
+    private FacultyMapper facultyMapper;
 
     @Override
     public FacultyDTO createFaculty(FacultyDTO facultyDTO) {

@@ -1,6 +1,7 @@
 package com.backpoc.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,21 +20,11 @@ public class Attendancy {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
-    @ManyToOne
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
-
-    private String weekday;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-
+    private LocalTime startTime;
+    private Long isPresent;
     public Attendancy() {
 
     }
@@ -46,52 +37,29 @@ public class Attendancy {
         this.id = id;
     }
 
-    public Course getCourse() {
-        return course;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public String getWeekday() {
-        return weekday;
-    }
-
-    public void setWeekday(String weekday) {
-        this.weekday = weekday;
-    }
-
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public Long getIsPresent() {
+        return isPresent;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setIsPresent(Long isPresent) {
+        this.isPresent = isPresent;
     }
+
 
 }

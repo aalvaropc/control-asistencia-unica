@@ -1,9 +1,9 @@
 package com.backpoc.service.implementation;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.backpoc.presentation.dto.AttendancyRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +23,9 @@ public class AttendancyServiceImpl implements IAttendancyService {
     private AttendancyMapper attendancyMapper;
 
     @Override
-    public AttendancyDTO createAttendancy(AttendancyDTO attendancyDTO) {
-        Attendancy attendancy = attendancyMapper.toEntity(attendancyDTO);
-        Attendancy savedAttendancy = attendancyRepository.save(attendancy);
-        return attendancyMapper.toDTO(savedAttendancy);
+    public String createAttendancy(AttendancyRegisterDTO attendancyRegisterDTO) {
+        int result = attendancyRepository.createAttendancy(attendancyRegisterDTO.getCourseId());
+        return  result == 1 ? "SUCCESS" : "FAILURE";
     }
 
     @Override
@@ -58,11 +57,10 @@ public class AttendancyServiceImpl implements IAttendancyService {
     }
 
     @Override
-    public List<AttendancyDTO> filterAttendances(Long professorId, Long courseId, LocalDateTime startDate, LocalDateTime endDate) {
-        List<Attendancy> attendancies = attendancyRepository.filterAttendances(professorId, courseId, startDate, endDate);
-
-        return attendancies.stream()
-                .map(attendancyMapper::attendancyToDTO)
+    public List<AttendancyDTO> filterAttendances(Long professorId) {
+        List<Attendancy> attendancy = attendancyRepository.filterAttendances(professorId);
+        return attendancy.stream()
+                .map(attendancyMapper::toDTO)
                 .collect(Collectors.toList());
     }
 }

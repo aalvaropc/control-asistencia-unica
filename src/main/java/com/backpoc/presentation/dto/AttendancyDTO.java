@@ -1,14 +1,29 @@
 package com.backpoc.presentation.dto;
 
+import com.backpoc.persistence.entity.Schedule;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AttendancyDTO {
-
     private Long id;
+
+    public Long getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(Long scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+    private Long scheduleId;
     private String courseName;
-    private String weekday;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private Long isPresent;
 
     public Long getId() {
         return id;
@@ -26,27 +41,23 @@ public class AttendancyDTO {
         this.courseName = courseName;
     }
 
-    public String getWeekday() {
-        return weekday;
-    }
-
-    public void setWeekday(String weekday) {
-        this.weekday = weekday;
-    }
-
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public Long getPresent() {
+        return isPresent;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setPresent(Long present) {
+        isPresent = present;
     }
+
+
+
+
 }

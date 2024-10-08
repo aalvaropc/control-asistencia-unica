@@ -1,10 +1,16 @@
 package com.backpoc.util;
 
+import lombok.Data;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
-
+@Data
 public class RESTMap extends HashMap {
 
     public <T> T get(String k) {
@@ -32,29 +38,20 @@ public class RESTMap extends HashMap {
         }
         return Integer.parseInt(o.toString());
     }
-
-    public Date getDate(String k) {
+    public LocalDateTime getLocalDateTime(String k){
         Object o = this.get(k);
         if (o == null) {
             return null;
         }
-        String s = o.toString();
+        return LocalDateTime.parse(o.toString());
+    }
 
-        String sample = "2019-01-03T23:00:00.000Z";
-        if (s.length() == sample.length() && s.indexOf("T") == sample.indexOf("T")) {
-            try {
-                return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(s);
-            } catch (ParseException e) {
-            }
+    public LocalTime getLocalTime(String k){
+        Object o = this.get(k);
+        if (o == null) {
+            return null;
         }
-
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(o.toString());
-        } catch (ParseException e) {
-        }
-
-        Long millis = Long.parseLong(o.toString());
-        return new Date(millis);
+        return LocalTime.parse(o.toString());
     }
 
     public Boolean getBoolean(String k) {

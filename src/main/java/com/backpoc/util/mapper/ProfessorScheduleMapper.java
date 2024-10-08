@@ -22,6 +22,7 @@ public interface ProfessorScheduleMapper {
     @Mapping(target = "dailyCourses", expression = "java(mapDailyCourses(dailyCourses))")
     ProfessorScheduleDTO toProfessorScheduleDTO(Professor professor, Map<String, List<CourseScheduleDTO>> dailyCourses);
 
+    @Mapping(source = "course.id", target = "courseId")
     @Mapping(source = "course.name", target = "courseName")
     @Mapping(source = "startTime", target = "startDateTime")
     @Mapping(source = "endTime", target = "endDateTime")

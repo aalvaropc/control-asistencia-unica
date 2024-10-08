@@ -14,12 +14,12 @@ public interface AttendancyMapper {
 
     AttendancyMapper INSTANCE = Mappers.getMapper(AttendancyMapper.class);
 
+
+    Attendancy  toEntity(AttendancyDTO attendancyDTO);
+
+
+    @Mapping(source = "schedule.course.name", target = "courseName")
+    @Mapping(source = "schedule.id", target = "scheduleId")
     AttendancyDTO toDTO(Attendancy attendancy);
-
-    Attendancy toEntity(AttendancyDTO attendancyDTO);
-
-
-    @Mapping(source = "course.name", target = "courseName") // Asumiendo que la entidad Attendancy tiene un objeto Course con un atributo name
-    AttendancyDTO attendancyToDTO(Attendancy attendancy);
 
 }
