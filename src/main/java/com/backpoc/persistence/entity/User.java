@@ -20,6 +20,7 @@ public class User {
     private String lastName;
     private String username;
     private String email;
+    private String password;
     private String phoneNumber;
     private String role;
     private LocalDateTime lastLogin;
@@ -101,4 +102,7 @@ public class User {
         this.status = status;
     }
 
+    public String getPassword() {return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }

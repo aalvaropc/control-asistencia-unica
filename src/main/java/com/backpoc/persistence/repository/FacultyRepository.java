@@ -7,6 +7,5 @@ import com.backpoc.persistence.entity.Faculty;
 
 @Repository
 public interface FacultyRepository extends JpaRepository<Faculty, Long> {
-
     Faculty findByEmail(String email);
 }

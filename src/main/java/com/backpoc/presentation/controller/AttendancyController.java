@@ -1,25 +1,20 @@
 package com.backpoc.presentation.controller;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 
 import com.backpoc.persistence.entity.Attendancy;
+import com.backpoc.presentation.dto.AttendancyRegisterDTO;
+import com.backpoc.util.GenericResponse;
 import com.backpoc.util.RESTMap;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.backpoc.presentation.dto.AttendancyDTO;
 import com.backpoc.service.interfaces.IAttendancyService;
 
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/attendecies")
 public class AttendancyController {
@@ -31,19 +26,43 @@ public class AttendancyController {
     }
 
 
-    @PostMapping("/filter")
-    public List<AttendancyDTO> filterAttendances(@RequestBody RESTMap params) {
+    @PostMapping("/listByProfessorId")
+    public ResponseEntity<GenericResponse<List<AttendancyDTO>>> filterAttendances(@RequestBody RESTMap params) {
         Long professorId = params.getLong("professorId");
-        Long courseId = params.getLong("courseId");
-        Date startDate = params.getDate("startDate");
-        Date endDate = params.getDate("endDate");
-
-        LocalDateTime startDateTime = startDate != null ? startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime() : null;
-        LocalDateTime endDateTime = endDate != null ? endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime() : null;
-
-        return attendancyService.filterAttendances(professorId, courseId, startDateTime, endDateTime);
+        List<AttendancyDTO> attendances = attendancyService.filterAttendances(professorId);
+        if (attendances.isEmpty()) {
+            GenericResponse<List<AttendancyDTO>> response = GenericResponse.<List<AttendancyDTO>>builder()
+                    .success(false)
+                    .message("No attendances found")
+                    .data(attendances)
+                    .build();
+            return ResponseEntity.status(404).body(response);
+        }
+        GenericResponse<List<AttendancyDTO>> response = GenericResponse.<List<AttendancyDTO>>builder()
+                .success(true)
+                .message("Attendances successfully list")
+                .data(attendances)
+                .build();
+        return ResponseEntity.status(200).body(response);
     }
-
+    @PostMapping("/create")
+    public ResponseEntity<GenericResponse<String>> createAttendancy(@RequestBody AttendancyRegisterDTO attendancyRegisterDTO) {
+        String status = attendancyService.createAttendancy(attendancyRegisterDTO);
+        if (!status.equals("SUCCESS")){
+            GenericResponse<String> response = GenericResponse.<String>builder()
+                    .success(false)
+                    .message("Attendancy not created")
+                    .data(status)
+                    .build();
+            return ResponseEntity.status(400).body(response);
+        }
+        GenericResponse<String> response = GenericResponse.<String>builder()
+                .success(true)
+                .message("Attendancy successfully created")
+                .data(status)
+                .build();
+        return ResponseEntity.status(201).body(response);
+    }
     @GetMapping
     public ResponseEntity<List<AttendancyDTO>> getAllAttendecies() {
         return ResponseEntity.ok(attendancyService.getAllAttendancies());
@@ -54,10 +73,7 @@ public class AttendancyController {
         return ResponseEntity.ok(attendancyService.getAttendancyById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<AttendancyDTO> createAttendancy(@RequestBody AttendancyDTO AttendancyDTO) {
-        return ResponseEntity.ok(attendancyService.createAttendancy(AttendancyDTO));
-    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<AttendancyDTO> updateAttendancy(@PathVariable Long id, @RequestBody AttendancyDTO AttendancyDTO) {

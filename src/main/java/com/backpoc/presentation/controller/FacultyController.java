@@ -2,20 +2,17 @@ package com.backpoc.presentation.controller;
 
 import java.util.List;
 
+import com.backpoc.persistence.entity.User;
+import com.backpoc.util.GenericResponse;
+import org.mapstruct.control.MappingControl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.backpoc.presentation.dto.FacultyDTO;
 import com.backpoc.presentation.dto.LoginRequestDTO;
 import com.backpoc.service.interfaces.IFacultyService;
 
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/faculties")
 public class FacultyController {
@@ -24,16 +21,6 @@ public class FacultyController {
 
     public FacultyController(IFacultyService facultyService) {
         this.facultyService = facultyService;
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequest) {
-        boolean isValidUser = facultyService.validateUser(loginRequest.getEmail(), loginRequest.getPassword());
-        if (isValidUser) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
-        }
     }
 
     @GetMapping
