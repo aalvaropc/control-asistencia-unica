@@ -24,14 +24,4 @@ public interface AttendancyRepository extends JpaRepository<Attendancy, Long> {
     List<Attendancy> filterAttendances(
         @Param("professorId") Long professorId
     );
-    @Modifying
-    @Transactional
-    @Query(value = """
-    INSERT INTO attendancy (schedule_id, start_time, is_present)
-    VALUES ((SELECT s.id FROM schedule s WHERE s.course_id = :courseId), CURRENT_TIMESTAMP, 1);
-    
-    """, nativeQuery = true)
-    int createAttendancy(
-            @Param("courseId") Long courseId
-    );
 }

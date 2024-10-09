@@ -20,6 +20,7 @@ public interface AttendancyMapper {
 
     @Mapping(source = "schedule.course.name", target = "courseName")
     @Mapping(source = "schedule.id", target = "scheduleId")
+    @Mapping(source = "isPresent", target = "isPresent")
     AttendancyDTO toDTO(Attendancy attendancy);
 
 }

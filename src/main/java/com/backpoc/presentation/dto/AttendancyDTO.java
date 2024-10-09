@@ -23,7 +23,7 @@ public class AttendancyDTO {
     private Long scheduleId;
     private String courseName;
     private LocalTime startTime;
-    private Long isPresent;
+    private Boolean isPresent;
 
     public Long getId() {
         return id;
@@ -49,11 +49,11 @@ public class AttendancyDTO {
         this.startTime = startTime;
     }
 
-    public Long getPresent() {
+    public Boolean getIsPresent() {
         return isPresent;
     }
 
-    public void setPresent(Long present) {
+    public void setIsPresent(Boolean present) {
         isPresent = present;
     }
 

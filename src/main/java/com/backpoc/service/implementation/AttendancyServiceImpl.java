@@ -1,8 +1,13 @@
 package com.backpoc.service.implementation;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.backpoc.persistence.entity.Schedule;
+import com.backpoc.persistence.repository.ScheduleRepository;
 import com.backpoc.presentation.dto.AttendancyRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +25,22 @@ public class AttendancyServiceImpl implements IAttendancyService {
     private AttendancyRepository attendancyRepository;
 
     @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
     private AttendancyMapper attendancyMapper;
 
     @Override
     public String createAttendancy(AttendancyRegisterDTO attendancyRegisterDTO) {
-        int result = attendancyRepository.createAttendancy(attendancyRegisterDTO.getCourseId());
-        return  result == 1 ? "SUCCESS" : "FAILURE";
+        if (!attendancyRegisterDTO.isValid()){ return "ERROR"; }
+        Schedule schedule = this.scheduleRepository.findScheduleByCourseAndProfessor(attendancyRegisterDTO.getCourseId(), attendancyRegisterDTO.getProfessorId());
+        Attendancy atendancy = new Attendancy();
+        LocalTime dateAttendancy = LocalTime.now();
+        atendancy.setSchedule(schedule);
+        atendancy.setStartTime(LocalTime.from(dateAttendancy));
+        atendancy.setIsPresent(true);
+        attendancyRepository.save(atendancy);
+        return "SUCCESS";
     }
 
     @Override

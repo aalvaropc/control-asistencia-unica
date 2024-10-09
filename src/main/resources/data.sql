@@ -75,10 +75,10 @@ CREATE TABLE schedule (
 );
 
 CREATE TABLE attendancy (
-    id BIGINT AUTO_INCREMENT,
+    id BIGINT PRIMARY KEY,
     schedule_id BIGINT,
     start_time TIMESTAMP,
-    is_present BIGINT,
+    is_present BOOLEAN,
     FOREIGN KEY (schedule_id) REFERENCES schedule(id)
 );
 
@@ -125,10 +125,10 @@ VALUES
 (5, 5, 1, 2, 'LUNES', '18:30:00', '20:30:00');
 
 -- Insertar registros de asistencia
-INSERT INTO attendancy (id, schedule_id, start_time, is_present)
+INSERT INTO attendancy (id ,schedule_id, start_time, is_present)
 VALUES
-(1, 1, '2024-10-05T10:00:00',0),
-(2, 2, '2024-10-05T10:00:00',1),
-(3, 3, '2024-10-05T10:00:00',1);
+(1, 1, '2024-10-05T09:10:00',FALSE),
+(2, 2, '2024-10-05T10:05:00',TRUE),
+(3,  3, '2024-10-05T18:31:00',TRUE);
 
 
