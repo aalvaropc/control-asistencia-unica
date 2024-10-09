@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Attendancy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class Attendancy {
     private Schedule schedule;
 
     private LocalTime startTime;
-    private Long isPresent;
+    private Boolean isPresent;
     public Attendancy() {
 
     }
@@ -53,13 +53,7 @@ public class Attendancy {
         this.startTime = startTime;
     }
 
-    public Long getIsPresent() {
-        return isPresent;
-    }
-
-    public void setIsPresent(Long isPresent) {
-        this.isPresent = isPresent;
-    }
-
+    public boolean getIsPresent() { return this.isPresent; }
+    public void setIsPresent(boolean present) { this.isPresent = present; }
 
 }
