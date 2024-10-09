@@ -19,8 +19,8 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
     @Override
-    public UserDTO getUserByEmail(String password) {
-        User user = userRepository.findByPassword(password);
+    public UserDTO getUser(String email,String password) {
+        User user = userRepository.findByEmailAndPassword(email,password);
         return userMapper.toDTO(user);
     }
 }

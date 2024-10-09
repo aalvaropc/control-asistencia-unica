@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("/login")
     public GenericResponse<UserDTO> login(@RequestBody UserDTO userDTO) {
-    UserDTO isValidUser = userService.getUserByEmail(userDTO.getPassword());
+    UserDTO isValidUser = userService.getUser(userDTO.getEmail(), userDTO.getPassword());
             if (isValidUser != null) {
                 return GenericResponse.<UserDTO>builder()
                         .success(true)

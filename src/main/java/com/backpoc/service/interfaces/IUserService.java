@@ -6,5 +6,5 @@ import com.backpoc.persistence.entity.User;
 import com.backpoc.presentation.dto.UserDTO;
 
 public interface IUserService {
-    UserDTO getUserByEmail(String password);
+    UserDTO getUser(String username,String password);
 }

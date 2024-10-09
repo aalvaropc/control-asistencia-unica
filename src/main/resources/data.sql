@@ -75,7 +75,7 @@ CREATE TABLE schedule (
 );
 
 CREATE TABLE attendancy (
-    id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT,
     schedule_id BIGINT,
     start_time TIMESTAMP,
     is_present BOOLEAN,
@@ -85,7 +85,7 @@ CREATE TABLE attendancy (
 -- Insertar usuarios
 INSERT INTO app_user (id, first_name, last_name, username, email, password, phone_number, role, last_login, status)
 VALUES
-(1, 'Jhon', 'Lovera', 'jhonl', 'jhon@example.com', '12345', '123456789', 'PROFESSOR', CURRENT_TIMESTAMP, 'ACTIVE'),
+(1, 'Jhon', 'Romero', 'jhonl', 'jhon@example.com', '12345', '123456789', 'PROFESSOR', CURRENT_TIMESTAMP, 'ACTIVE'),
 (2, 'Jessica', 'Puchuri', 'jessicap', 'jessica@example.com', '1234', '987654321', 'PROFESSOR', CURRENT_TIMESTAMP, 'ACTIVE'),
 (3, 'Carmen', 'Pineda', 'carmenp', 'carmen@example.com', '123','555555555', 'PROFESSOR', CURRENT_TIMESTAMP, 'ACTIVE');
 
@@ -106,7 +106,12 @@ VALUES
 (2, 'CONTROL DE CALIDAD Y PRUEBAS DE SOFTWARE',' DISEÑO E IMPLEMENTACIÓN DE SISTEMAS', 1),
 (3, 'DISEÑO E IMPLEMENTACIÓN DE SISTEMAS', 'Curso avanzado de matemáticas', 1),
 (4, 'GERENCIA DE PROYECTOS TI', 'GERENCIA DE PROYECTOS TI', 1),
-(5, 'INGENIERÍA DE PROCESOS DE NEGOCIO', 'INGENIERÍA DE PROCESOS DE NEGOCIO', 1);
+(5, 'INGENIERÍA DE PROCESOS DE NEGOCIO', 'INGENIERÍA DE PROCESOS DE NEGOCIO', 1),
+(6, 'PROGRAMACIÓN WEB', 'Curso introductorio sobre desarrollo de aplicaciones web', 1),
+(7, 'INTELIGENCIA ARTIFICIAL', 'Fundamentos y aplicaciones de la inteligencia artificial', 1),
+(8, 'MACHINE LEARNING', 'Curso de aprendizaje automático', 1),
+(9, 'BASES DE DATOS AVANZADAS', 'Diseño y administración avanzada de bases de datos', 1),
+(10, 'SEGURIDAD INFORMÁTICA', 'Principios de seguridad en sistemas informáticos', 1);
 
 -- Insertar profesores
 INSERT INTO professor (id, user_id, department_id, hire_date)
@@ -127,8 +132,8 @@ VALUES
 -- Insertar registros de asistencia
 INSERT INTO attendancy (id ,schedule_id, start_time, is_present)
 VALUES
-(1, 1, '2024-10-05T09:10:00',FALSE),
-(2, 2, '2024-10-05T10:05:00',TRUE),
-(3,  3, '2024-10-05T18:31:00',TRUE);
+(50, 1, '2024-10-05T09:10:00.858',FALSE),
+(51, 2, '2024-10-05T10:05:00.222',TRUE),
+(52, 3, '2024-10-05T18:31:00.421',TRUE);
 
 

@@ -7,5 +7,5 @@ import com.backpoc.persistence.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByPassword(String password);
+    User findByEmailAndPassword(String email, String password);
 }
