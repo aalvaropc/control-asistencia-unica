@@ -38,7 +38,7 @@ public class AttendancyServiceImpl implements IAttendancyService {
         LocalTime dateAttendancy = LocalTime.now();
         atendancy.setSchedule(schedule);
         atendancy.setStartTime(LocalTime.from(dateAttendancy));
-        atendancy.setIsPresent(true);
+        atendancy.setIsPresent(schedule.getStartTime().isAfter(dateAttendancy) && schedule.getEndTime().isBefore(dateAttendancy));
         attendancyRepository.save(atendancy);
         return "SUCCESS";
     }
